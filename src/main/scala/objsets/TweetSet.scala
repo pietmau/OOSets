@@ -138,6 +138,14 @@ class Empty extends TweetSet {
 
 class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
 
+  def reverse(input: TweetList): TweetList = {
+    var result: TweetList = Nil;
+    input.foreach(x => {
+      result = new Cons(x, result)
+    })
+    result
+  }
+
   override def descendingByRetweet: TweetList = {
     var result: TweetList = Nil
     var ff: TweetSet = this
@@ -146,7 +154,7 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
       ff = ff.remove(y)
       result = new Cons(y, result)
     })
-    result
+    reverse(result)
   }
 
   override def mostRetweeted: Tweet = {

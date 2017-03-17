@@ -112,6 +112,8 @@ class Empty extends TweetSet {
 
   override def union(that: TweetSet): TweetSet = that
 
+  override def descendingByRetweet: TweetList = Nil
+
   /**
     * This method takes a predicate and returns a subset of all the elements
     * in the original set for which the predicate is true.
@@ -135,6 +137,27 @@ class Empty extends TweetSet {
 }
 
 class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
+
+  override def descendingByRetweet: TweetList = {
+    var result: TweetList = Nil
+    var ff: TweetSet = this
+    foreach(x => {
+      val y = ff.mostRetweeted;
+      ff = ff.remove(y)
+      result = new Cons(y, result)
+    })
+    result
+  }
+
+  override def mostRetweeted: Tweet = {
+    var result = elem
+    foreach(x => {
+      if (x.retweets > result.retweets) {
+        result = x
+      }
+    })
+    result
+  }
 
 
   def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = {

@@ -110,6 +110,8 @@ class Empty extends TweetSet {
   def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = acc
 
 
+  override def union(that: TweetSet): TweetSet = that
+
   /**
     * This method takes a predicate and returns a subset of all the elements
     * in the original set for which the predicate is true.
@@ -143,6 +145,11 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
     left.filterAcc(p, right.filterAcc(p, ff))
   }
 
+
+  override def union(that: TweetSet): TweetSet = {
+    new NonEmpty()
+
+  }
 
   /**
     * The following methods are already implemented

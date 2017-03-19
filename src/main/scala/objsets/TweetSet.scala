@@ -109,7 +109,6 @@ abstract class TweetSet {
 class Empty extends TweetSet {
   def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = acc
 
-
   override def union(that: TweetSet): TweetSet = that
 
   override def descendingByRetweet: TweetList = Nil
@@ -178,10 +177,6 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
 
 
   override def union(that: TweetSet): TweetSet = {
-
-    def add(curr: TweetSet, tw: Tweet): TweetSet = {
-      curr.incl(tw)
-    }
     var ff: TweetSet = this
     that.foreach(x => {
       ff = ff.incl(x)
